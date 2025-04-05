@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPA Bank (CPX) - Currency Trading</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Verdana', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e8f4f8;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header {
+            background: #004080;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        header .dark-mode-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .dashboard {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .dashboard .card {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+            width: 30%;
+        }
+
+        .dashboard .card h3 {
+            color: #004080;
+            margin-bottom: 10px;
+        }
+
+        .dashboard .card p {
+            font-size: 18px;
+        }
+
+        .auctions, .profile, .transactions, .bid-history, .upcoming-auctions, .help {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .auctions h2, .profile h2, .transactions h2, .bid-history h2, .upcoming-auctions h2, .help h2 {
+            color: #004080;
+            margin-bottom: 20px;
+        }
+
+        .auctions table, .transactions table, .bid-history table, .upcoming-auctions table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .auctions th, .transactions th, .bid-history th, .upcoming-auctions th, .auctions td, .transactions td, .bid-history td, .upcoming-auctions td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .auctions th, .transactions th, .bid-history th, .upcoming-auctions th {
+            background-color: #004080;
+            color: #fff;
+        }
+
+        .auctions td, .transactions td, .bid-history td, .upcoming-auctions td {
+            background-color: #f9f9f9;
+        }
+
+        .progress {
+            position: relative;
+            background-color: #ddd;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: #28a745;
+            width: 60%;
+            transition: width 0.5s ease;
+        }
+
+        .bid-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .bid-form input {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            width: 80%;
+        }
+
+        .bid-form button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .bid-form button:hover {
+            background-color: #218838;
+        }
+
+        .notifications {
+            background-color: #fff9c4;
+            border: 1px solid #f0e68c;
+            padding: 20px;
+            border-radius: 6px;
+            color: #856404;
+            margin-top: 20px;
+        }
+
+        .chart {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .chart img {
+            max-width: 100%;
+        }
+
+        footer {
+            background: #004080;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #004080;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .dark-mode-toggle:hover {
+            background: #003366;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>CPA Bank (CPX) - Currency Trading</h1>
+        <span class="dark-mode-toggle">Switch to Dark Mode</span>
+    </header>
+
+    <div class="container">
+        <!-- Dashboard Section -->
+        <section class="dashboard">
+            <div class="card">
+                <h3>Cash Balance</h3>
+                <p>1000 Birr</p>
+            </div>
+            <div class="card">
+                <h3>Gold Coin Balance</h3>
+                <p>500 GC</p>
+            </div>
+            <div class="card">
+                <h3>Active Bids</h3>
+                <p>2</p>
+            </div>
+        </section>
+
+        <!-- Auction Listing Section -->
+        <section class="auctions">
+            <h2>Available Auctions</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Seller Name</th>
+                        <th>Currency Type</th>
+                        <th>Initial Bid Exchange Rate (IBXR)</th>
+                        <th>Current Bid Exchange Rate (BXR)</th>
+                        <th>Budgeted Cash (BC)</th>
+                        <th>Bid</th>
+                        <th>Auction Progress</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Eskerpap</td>
+                        <td>Gold Coin</td>
+                        <td>1/1.75</td>
+                        <td>2.75</td>
+                        <td>100</td>
+                        <td>
+                            <form class="bid-form">
+                                <input type="number" placeholder="Enter bid price" required>
+                                <button type="submit">Place Bid</button>
+                            </form>
+                        </td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 60%;"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Add more auction rows as needed -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- User Profile Section -->
+        <section class="profile">
+            <h2>User Profile</h2>
+            <p><strong>Name:</strong> John Doe</p>
+            <p><strong>Member ID:</strong> 1075</p>
+            <p><strong>Email:</strong> johndoe@example.com</p>
+        </section>
+
+        <!-- Transaction History Section -->
+        <section class="transactions">
+            <h2>Transaction History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2024-09-10</td>
+                        <td>Bid on Auction #123</td>
+                        <td>-50 GC</td>
+                        <td>Debit</td>
+                    </tr>
+                    <tr>
+                        <td>2024-09-08</td>
+                        <td>Bid on Auction #122</td>
+                        <td>-30 GC</td>
+                        <td>Debit</td>
+                    </tr>
+                    <!-- Add more transaction rows as needed -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Bid History Section -->
+        <section class="bid-history">
+            <h2>Bid History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Auction ID</th>
+                        <th>Bid Amount</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#123</td>
+                        <td>50 GC</td>
+                        <td>2024-09-10</td>
+                    </tr>
+                    <tr>
+                        <td>#122</td>
+                        <td>30 GC</td>
+                        <td>2024-09-08</td>
+                    </tr>
+                    <!-- Add more bid history rows as needed -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Upcoming Auctions Section -->
+        <section class="upcoming-auctions">
+            <h2>Upcoming Auctions</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Auction ID</th>
+                        <th>Currency Type</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#124</td>
+                        <td>Gold Coin</td>
+                        <td>2024-09-15</td>
+                        <td>2024-09-22</td>
+                    </tr>
+                    <tr>
+                        <td>#125</td>
+                        <td>Gold Coin</td>
+                        <td>2024-09-20</td>
+                        <td>2024-09-30</td>
+                    </tr>
+                    <!-- Add more upcoming auction rows as needed -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Help Section -->
+        <section class="help">
+            <h2>Help and Support</h2>
+            <p>If you need assistance with the platform, please contact our support team at <a href="mailto:support@cpa.com">support@cpa.com</a>.</p>
+            <p>For detailed instructions on how to use the CPA Bank (CPX), visit our <a href="#">Help Center</a>.</p>
+        </section>
+
+        <!-- Notifications Section -->
+        <section class="notifications">
+            <h2>Notifications</h2>
+            <p><strong>Bid Confirmation:</strong> Your bid has been placed successfully.</p>
+            <p><strong>Winner Notification:</strong> You have won Auction #123. Please transfer the amount to the Admin account.</p>
+        </section>
+
+        <!-- Chart Section -->
+        <section class="chart">
+            <h2>Live Auction Trends</h2>
+            <p>Live updates showing trends in exchange rates and traded volumes.</p>
+            <img src="https://via.placeholder.com/600x300" alt="Chart Placeholder">
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 CPA Bank (CPX) - All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // Dark Mode Toggle
+        const toggleButton = document.querySelector('.dark-mode-toggle');
+        toggleButton.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            toggleButton.textContent = document.body.classList.contains('dark-mode') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPA - Trade History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .menu-bar {
+            background-color: #444;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .menu-bar a {
+            float: left;
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 12px 16px;
+            text-decoration: none;
+        }
+        .menu-bar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .container {
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .info {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e7f7e7;
+            border-left: 6px solid green;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="#">My Account</a>
+        <a href="#">Trading Center</a>
+        <a href="#">My Trade Analysis</a>
+        <a href="#">CPA Bank</a>
+    </div>
+
+    <div class="menu-bar">
+        <a href="dashboard.html">dashboard</a>
+        <a href="personal_trade_info.html">Personal Trade Information</a>
+        <a href="trad history.html">Trade History</a>
+        <a href="profit and loss.html">Profit & Loss Analysis</a>
+        <a href="divident and penalities.html">Dividend & Penalties</a>
+    </div>
+
+    <div class="container">
+        <h2>Trade History</h2>
+        <table>
+            <tr>
+                <th>Auction Number</th>
+                <th>Trade Status</th>
+                <th>Seller Member ID</th>
+                <th># of Shares Sold</th>
+                <th>Lowest Bidding Price</th>
+                <th>Closing/Winning Price</th>
+                <th>Buyer Member ID</th>
+            </tr>
+            <tr>
+                <td>1454</td>
+                <td>Closed</td>
+                <td>1001</td>
+                <td>6</td>
+                <td>2.20</td>
+                <td>3.10</td>
+                <td>1010</td>
+            </tr>
+            <tr>
+                <td>1455</td>
+                <td>Pending</td>
+                <td>1007</td>
+                <td>24</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>1456</td>
+                <td>Closed</td>
+                <td>1002</td>
+                <td>12</td>
+                <td>1.95</td>
+                <td>2.80</td>
+                <td>1009</td>
+            </tr>
+            <tr>
+                <td>1457</td>
+                <td>Closed</td>
+                <td>1010</td>
+                <td>15</td>
+                <td>2.50</td>
+                <td>3.40</td>
+                <td>1004</td>
+            </tr>
+        </table>
+        <div class="info">
+            <p><strong>Note:</strong> The table shows both pending and closed trades. For pending trades, details of the lowest bidding price and winning price will be filled in once the auction closes.</p>
+        </div>
+    </div>
+
+</body>
+</html>

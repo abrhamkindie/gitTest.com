@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPA - Dividend & Penalties</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .menu-bar {
+            background-color: #444;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .menu-bar a {
+            float: left;
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 12px 16px;
+            text-decoration: none;
+        }
+        .menu-bar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .container {
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        .info {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e7f7e7;
+            border-left: 6px solid green;
+            margin-bottom: 15px;
+        }
+        .dividend-penalties-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .dividend-penalties-table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .chart-container {
+            margin-top: 40px;
+        }
+        .chart {
+            width: 100%;
+            height: 400px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+        }
+    </style>
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="#">My Account</a>
+        <a href="#">Trading Center</a>
+        <a href="#">My Trade Analysis</a>
+        <a href="#">CPA Bank</a>
+    </div>
+
+    <div class="menu-bar">
+        <a href="dashboard.html">dashboard</a>
+        <a href="personal_trade_info.html">Personal Trade Information</a>
+        <a href="trad history.html">Trade History</a>
+        <a href="profit and loss.html">Profit & Loss Analysis</a>
+        <a href="divident and penalities.html">Dividend & Penalties</a>
+    </div>
+
+    <div class="container">
+        <h2>Dividend & Penalties</h2>
+        <table class="dividend-penalties-table">
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Dividend (GC)</th>
+                <th>Penalty (GC)</th>
+                <th>Net Amount (GC)</th>
+            </tr>
+            <tr>
+                <td>2024-08-25</td>
+                <td>Quarterly Dividend</td>
+                <td>5.00</td>
+                <td>-</td>
+                <td style="color: green;">+5.00</td>
+            </tr>
+            <tr>
+                <td>2024-08-26</td>
+                <td>Late Payment Penalty</td>
+                <td>-</td>
+                <td>1.50</td>
+                <td style="color: red;">-1.50</td>
+            </tr>
+            <tr>
+                <td>2024-08-27</td>
+                <td>Annual Dividend</td>
+                <td>12.00</td>
+                <td>-</td>
+                <td style="color: green;">+12.00</td>
+            </tr>
+            <tr>
+                <td>2024-08-28</td>
+                <td>Regulation Penalty</td>
+                <td>-</td>
+                <td>3.00</td>
+                <td style="color: red;">-3.00</td>
+            </tr>
+        </table>
+        
+        <div class="chart-container">
+            <h3>Dividend & Penalties Chart</h3>
+            <canvas id="dividendPenaltiesChart" class="chart"></canvas>
+        </div>
+
+        <div class="info">
+            <p><strong>Note:</strong> The table and chart provide a summary of your dividend and penalty history. Positive values indicate dividends, while negative values indicate penalties.</p>
+        </div>
+    </div>
+
+    <script>
+        // Data for the chart
+        const chartData = {
+            labels: ['2024-08-25', '2024-08-26', '2024-08-27', '2024-08-28'],
+            datasets: [
+                {
+                    label: 'Dividend (GC)',
+                    data: [5.00, 0, 12.00, 0],
+                    backgroundColor: 'rgba(0, 255, 0, 0.2)', // Green for dividends
+                    borderColor: 'rgba(0, 128, 0, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Penalty (GC)',
+                    data: [0, 1.50, 0, 3.00],
+                    backgroundColor: 'rgba(255, 0, 0, 0.2)', // Red for penalties
+                    borderColor: 'rgba(255, 0, 0, 1)',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        // Config for the chart
+        const config = {
+            type: 'bar',
+            data: chartData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Render the chart
+        const dividendPenaltiesChart = new Chart(
+            document.getElementById('dividendPenaltiesChart'),
+            config
+        );
+    </script>
+
+</body>
+</html>

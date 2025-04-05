@@ -1,0 +1,130 @@
+
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPA - Personal Trade Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .menu-bar {
+            background-color: #444;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .menu-bar a {
+            float: left;
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 12px 16px;
+            text-decoration: none;
+        }
+        .menu-bar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .container {
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        .chart-container {
+            width: 80%;
+            margin: auto;
+        }
+        canvas {
+            background: #f9f9f9;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .info {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e7f7e7;
+            border-left: 6px solid green;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="#">My Account</a>
+        <a href="#">Trading Center</a>
+        <a href="#">My Trade Analysis</a>
+        <a href="#">CPA Bank</a>
+    </div>
+
+    <div class="menu-bar">
+        <a href="dashboard.html">dashboard</a>
+        <a href="personal_trade_info.html">Personal Trade Information</a>
+        <a href="trad history.html">Trade History</a>
+        <a href="profit and loss.html">Profit & Loss Analysis</a>
+        <a href="divident and penalities.html">Dividend & Penalties</a>
+    </div>
+
+    <div class="container">
+        <h2>Personal Trade Analysis - Bid Winning Price per Auction Round</h2>
+        <div class="chart-container">
+            <canvas id="tradeChart"></canvas>
+        </div>
+        <div class="info">
+            <p><strong>Note:</strong> Green bars indicate an increase in bid price, while red bars indicate a decrease.</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('tradeChart').getContext('2d');
+        var tradeChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['1', '2', '3', '4', '5', '6', '7'],
+                datasets: [{
+                    label: 'Bid Winning Price',
+                    data: [1.52, 1.85, 1.3, 2.4, 3.35, 6.35, 3.2],
+                    backgroundColor: [
+                        'green', 'green', 'red', 'green', 'green', 'green', 'red'
+                    ],
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
